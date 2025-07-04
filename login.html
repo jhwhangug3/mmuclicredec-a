@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Multimedia University Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f6f7f9;
+      background-image: repeating-linear-gradient(to bottom, #ececec 0px, #ececec 1px, transparent 1px, transparent 32px);
+    }
+    .login-container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 2.2rem 2rem 1.7rem 2rem;
+      max-width: 350px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .login-logo {
+      width: 70px;
+      height: auto;
+      margin-bottom: 1.2rem;
+    }
+    .login-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #222;
+      letter-spacing: 0.01em;
+    }
+    .login-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .input-group {
+      position: relative;
+      width: 100%;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.7rem 0.7rem 0.7rem 2.3rem;
+      border-radius: 7px;
+      border: 1.2px solid #e0e0e0;
+      font-size: 1rem;
+      background: #fafbfc;
+      color: #222;
+      outline: none;
+      transition: border 0.18s;
+    }
+    .input-group input:focus {
+      border: 1.2px solid #1976d2;
+    }
+    .input-group .input-icon {
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #bdbdbd;
+      pointer-events: none;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 0.7rem 0;
+      border: none;
+      border-radius: 7px;
+      background: #1976d2;
+      color: #fff;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.18s;
+    }
+    .login-btn:hover {
+      background: #1256a3;
+    }
+    .login-links {
+      margin-top: 1.1rem;
+      width: 100%;
+      text-align: right;
+    }
+    .login-links a {
+      color: #1976d2;
+      text-decoration: none;
+      font-size: 0.97rem;
+      transition: color 0.18s;
+    }
+    .login-links a:hover {
+      color: #1256a3;
+      text-decoration: underline;
+    }
+    @media (max-width: 500px) {
+      .login-container {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+        max-width: 98vw;
+      }
+      .login-title {
+        font-size: 1.08rem;
+      }
+      .input-group input {
+        font-size: 0.97rem;
+        padding-left: 2rem;
+      }
+    }
+    body.dark-mode {
+      background-color: #181c23;
+      background-image: repeating-linear-gradient(to bottom, #232733 0px, #232733 1px, transparent 1px, transparent 32px);
+    }
+    body.dark-mode .login-container {
+      background: #23283a;
+      color: #e3e6eb;
+      box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
+    }
+    body.dark-mode .login-title {
+      color: #e3e6eb;
+    }
+    body.dark-mode .input-group input {
+      background: #232733;
+      color: #e3e6eb;
+      border: 1.2px solid #23283a;
+    }
+    body.dark-mode .input-group input:focus {
+      border: 1.2px solid #90caf9;
+    }
+    body.dark-mode .login-btn {
+      background: #90caf9;
+      color: #232733;
+    }
+    body.dark-mode .login-btn:hover {
+      background: #1976d2;
+      color: #fff;
+    }
+    body.dark-mode .login-links a {
+      color: #90caf9;
+    }
+    body.dark-mode .login-links a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <form class="login-container" autocomplete="on">
+    <img src="assets/Multimedia_University_logo.png" alt="MMU Logo" class="login-logo" />
+    <div class="login-title">Sign in to your MMU Portal</div>
+    <div class="login-form">
+      <div class="input-group">
+        <span class="input-icon"><i data-feather="mail"></i></span>
+        <input type="email" name="email" placeholder="Email address" required autocomplete="username" />
+      </div>
+      <div class="input-group">
+        <span class="input-icon"><i data-feather="lock"></i></span>
+        <input type="password" name="password" placeholder="Password" required autocomplete="current-password" />
+      </div>
+      <button class="login-btn" type="submit">Login</button>
+    </div>
+    <div class="login-links">
+      <a href="#">Forgot password?</a>
+    </div>
+  </form>
+  <div class="profile-dropdown" id="profileDropdown">
+    <div class="notification-title">Profile & Settings</div>
+    <div class="notification-list">
+      <a href="personal-information.html" class="dropdown-item" style="width:100%;text-align:left;display:block;padding:8px 16px;">
+        <i data-feather="user"></i>
+        <span style="margin-left:0.5em;">Personal Information</span>
+      </a>
+      <button id="darkModeToggle" class="dropdown-item" type="button" style="width:100%;text-align:left;">
+        <i id="darkModeIcon" data-feather="moon"></i>
+        <span style="margin-left:0.5em;">Dark Mode</span>
+      </button>
+    </div>
+  </div>
+  <script>feather.replace()</script>
+</body>
+</html>

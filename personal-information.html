@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Information</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem 2.5rem;
+      margin: 0 auto 2rem auto;
+      max-width: 500px;
+      position: relative;
+      top: 90px;
+      z-index: 2;
+    }
+    .profile-card .profile-pic {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e3f0fc;
+      box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+    }
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .profile-info .profile-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1976d2;
+    }
+    .profile-info .profile-id {
+      font-size: 1rem;
+      color: #555;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2.5rem 0 1.5rem 0;
+      position: relative;
+      top: 80px;
+      z-index: 1;
+    }
+    .tab {
+      background: none;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #1976d2;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .tab.active, .tab:hover {
+      background: #e3f0fc;
+      color: #1976d2;
+    }
+    .tab-content {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      top: 80px;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .info-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 0.95rem;
+    }
+    .info-card h2 {
+      margin-top: 0;
+      color: #1976d2;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .info-table th, .info-table td {
+      padding: 0.5rem 0.7rem;
+      border-bottom: 1px solid #ececec;
+      text-align: left;
+      font-size: 0.93rem;
+    }
+    .info-table th {
+      color: #1976d2;
+      font-weight: 600;
+      background: #f6f7f9;
+    }
+    .info-table tr:last-child td {
+      border-bottom: none;
+    }
+    @media (max-width: 700px) {
+      .profile-card, .info-card { padding: 1.2rem; }
+      .tabs { gap: 0.5rem; }
+      .tab { padding: 0.7rem 0.7rem; font-size: 1rem; }
+    }
+    @media (max-width: 600px) {
+      .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+        padding: 0.7rem 0.7rem;
+        max-width: 98vw;
+      }
+      .info-card {
+        padding: 0.6rem 0.4rem;
+        max-width: 99vw;
+        font-size: 0.85rem;
+      }
+      .info-card h2 {
+        font-size: 0.95rem;
+      }
+      .info-table th, .info-table td {
+        padding: 0.32rem 0.3rem;
+        font-size: 0.82rem;
+      }
+      .tabs {
+        gap: 0.2rem;
+        margin: 1.2rem 0 0.5rem 0;
+      }
+      .tab {
+        font-size: 0.82rem;
+        padding: 0.32rem 0.4rem;
+      }
+    }
+  </style>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="header">
+    <a href="index.html" class="finance-back-btn" aria-label="Back to Dashboard"><i data-feather="arrow-left"></i></a>
+    <div class="header-left">
+      <img src="assets/Multimedia_University_logo.png" alt="MMU Logo" class="header-logo-img" />
+    </div>
+    <div class="header-icons" id="headerIcons">
+      <span class="header-icon search-icon-wrapper" title="Search" id="searchIconWrapper">
+        <i data-feather="search"></i>
+      </span>
+      <span class="header-icon notification-icon-wrapper" title="Notifications" id="notificationIconWrapper">
+        <i data-feather="bell"></i>
+      </span>
+      <span class="profile-pic-wrapper" title="Profile" id="profilePicWrapper">
+        <img src="assets/rsz_passport_size_photograph.jpg" alt="Profile" class="profile-pic" />
+      </span>
+    </div>
+    <div class="search-bar" id="headerSearchBar">
+      <input type="text" class="search-input" placeholder="Search…" autofocus />
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <div class="notification-dropdown" id="notificationDropdown">
+      <div class="notification-title">Notifications</div>
+      <div class="notification-list">
+        <div class="notification-item unread">
+          <span class="notification-message">Your class schedule has been updated.</span>
+          <span class="notification-time">2 min ago</span>
+        </div>
+        <div class="notification-item">
+          <span class="notification-message">Exam results are now available.</span>
+          <span class="notification-time">1 hr ago</span>
+        </div>
+        <div class="notification-item">
+          <span class="notification-message">Welcome to the new student portal!</span>
+          <span class="notification-time">1 day ago</span>
+        </div>
+      </div>
+      <div class="notification-footer"><a href="#">View all</a></div>
+    </div>
+    <div class="profile-dropdown" id="profileDropdown">
+      <div class="notification-title">Profile & Settings</div>
+      <div class="notification-list">
+        <a href="personal-information.html" class="dropdown-item" style="width:100%;text-align:left;display:block;padding:8px 16px;">
+          <i data-feather="user"></i>
+          <span style="margin-left:0.5em;">Personal Information</span>
+        </a>
+        <button id="darkModeToggle" class="dropdown-item" type="button" style="width:100%;text-align:left;">
+          <i id="darkModeIcon" data-feather="moon"></i>
+          <span style="margin-left:0.5em;">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-blur-overlay" id="modalBlurOverlay"></div>
+<br><br><br>
+  <div class="profile-card">
+    <img src="assets/rsz_passport_size_photograph.jpg" alt="Profile" class="profile-pic" />
+    <div class="profile-info">
+      <span class="profile-name">Nahin Bin Monir</span>
+      <span class="profile-id">ID: 243FC245H1</span>
+      <span class="profile-email">MONIR.NAHIN@student.mmu.edu.my</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="addresses">Addresses</button>
+    <button class="tab" data-tab="contact">Contact Details</button>
+    <button class="tab" data-tab="emergency">Emergency Contacts</button>
+    <button class="tab" data-tab="ethnicity">Ethnicity</button>
+  </div>
+
+  <div class="tab-content active" id="tab-addresses">
+    <div class="info-card" id="addressesCard">
+      <h2>Addresses</h2>
+      <table class="info-table" id="addressesTable">
+        <tr><th>Type</th><th>Address</th><th>Status</th></tr>
+        <tr>
+          <td>Home</td>
+          <td id="homeAddressCell">EAST ADALAT PARA, TANGAIL SADAR<br>TANGAIL HEAD OFFICE 1900<br>TANGAIL, DHAKA 1900</td>
+          <td>Current</td>
+        </tr>
+        <tr>
+          <td>Mailing</td>
+          <td id="mailingAddressCell">EAST ADALAT PARA, TANGAIL SADAR<br>TANGAIL HEAD OFFICE 1900<br>TANGAIL, DHAKA 1900</td>
+          <td>Current</td>
+        </tr>
+        <tr>
+          <td>Campus</td>
+          <td id="campusAddressCell"><i>No address defined</i></td>
+          <td>-</td>
+        </tr>
+      </table>
+      <div id="editInfoBtnContainer" style="text-align:center;margin-top:1.2rem;">
+        <button id="editInfoBtn" style="padding:0.45rem 1.2rem;font-size:0.95rem;background:#1976d2;color:#fff;border:none;border-radius:7px;cursor:pointer;transition:background 0.2s;">Edit Info</button>
+        <button id="saveInfoBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#388e3c;color:#fff;border:none;border-radius:7px;cursor:pointer;margin-right:0.5rem;">Save</button>
+        <button id="cancelEditBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#b71c1c;color:#fff;border:none;border-radius:7px;cursor:pointer;">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-contact">
+    <div class="info-card">
+      <h2>Contact Details</h2>
+      <table class="info-table" id="contactEmailTable">
+        <tr><th>Email</th><th>Type</th><th>Preferred</th></tr>
+        <tr>
+          <td id="campusEmailCell">MONIR.NAHIN@student.mmu.edu.my</td><td>Campus</td><td id="campusEmailPreferredCell">✔</td>
+        </tr>
+        <tr>
+          <td id="homeEmailCell">nahinbinmunir@gmail.com</td><td>Home</td><td id="homeEmailPreferredCell"></td>
+        </tr>
+      </table>
+      <table class="info-table" id="contactPhoneTable">
+        <tr><th>Phone</th><th>Type</th><th>Preferred</th></tr>
+        <tr>
+          <td id="mobilePhoneCell">+60 182865985</td><td>Mobile</td><td id="mobilePhonePreferredCell">✔</td>
+        </tr>
+      </table>
+      <div id="editContactBtnContainer" style="text-align:center;margin-top:1.2rem;">
+        <button id="editContactBtn" style="padding:0.45rem 1.2rem;font-size:0.95rem;background:#1976d2;color:#fff;border:none;border-radius:7px;cursor:pointer;transition:background 0.2s;">Edit Info</button>
+        <button id="saveContactBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#388e3c;color:#fff;border:none;border-radius:7px;cursor:pointer;margin-right:0.5rem;">Save</button>
+        <button id="cancelContactBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#b71c1c;color:#fff;border:none;border-radius:7px;cursor:pointer;">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-emergency">
+    <div class="info-card">
+      <h2>Emergency Contacts</h2>
+      <table class="info-table" id="emergencyTable">
+        <tr><th>Contact</th><th>Phone</th><th>Preferred</th></tr>
+        <tr>
+          <td id="emergencyNameCell">MOHAMMED MONIRUL ISLAM</td><td id="emergencyPhoneCell">+880 171/146-5965</td><td>✔</td>
+        </tr>
+      </table>
+      <div id="editEmergencyBtnContainer" style="text-align:center;margin-top:1.2rem;">
+        <button id="editEmergencyBtn" style="padding:0.45rem 1.2rem;font-size:0.95rem;background:#1976d2;color:#fff;border:none;border-radius:7px;cursor:pointer;transition:background 0.2s;">Edit Info</button>
+        <button id="saveEmergencyBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#388e3c;color:#fff;border:none;border-radius:7px;cursor:pointer;margin-right:0.5rem;">Save</button>
+        <button id="cancelEmergencyBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#b71c1c;color:#fff;border:none;border-radius:7px;cursor:pointer;">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-ethnicity">
+    <div class="info-card">
+      <h2>Ethnicity</h2>
+      <table class="info-table" id="ethnicityTable">
+        <tr><th>Code</th><th>Background</th></tr>
+        <tr>
+          <td id="ethnicityCodeCell">99</td><td id="ethnicityBgCell">OTHERS - NON-MALAYSIAN</td>
+        </tr>
+      </table>
+      <div id="editEthnicityBtnContainer" style="text-align:center;margin-top:1.2rem;">
+        <button id="editEthnicityBtn" style="padding:0.45rem 1.2rem;font-size:0.95rem;background:#1976d2;color:#fff;border:none;border-radius:7px;cursor:pointer;transition:background 0.2s;">Edit Info</button>
+        <button id="saveEthnicityBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#388e3c;color:#fff;border:none;border-radius:7px;cursor:pointer;margin-right:0.5rem;">Save</button>
+        <button id="cancelEthnicityBtn" style="display:none;padding:0.45rem 1.2rem;font-size:0.95rem;background:#b71c1c;color:#fff;border:none;border-radius:7px;cursor:pointer;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>feather.replace();
+    // Edit Info logic for Addresses section only
+    const editBtn = document.getElementById('editInfoBtn');
+    const saveBtn = document.getElementById('saveInfoBtn');
+    const cancelBtn = document.getElementById('cancelEditBtn');
+    const homeCell = document.getElementById('homeAddressCell');
+    const mailingCell = document.getElementById('mailingAddressCell');
+    const campusCell = document.getElementById('campusAddressCell');
+    let isEditing = false;
+    let originalHome = homeCell.innerHTML;
+    let originalMailing = mailingCell.innerHTML;
+    let originalCampus = campusCell.innerHTML;
+    editBtn.addEventListener('click', function() {
+      isEditing = true;
+      editBtn.style.display = 'none';
+      saveBtn.style.display = 'inline-block';
+      cancelBtn.style.display = 'inline-block';
+      // Replace address cells with textareas
+      homeCell.innerHTML = `<textarea id='homeAddressInput' style='width:98%;min-height:60px;'>${originalHome.replace(/<br>/g, '\n').replace(/<[^>]+>/g, '')}</textarea>`;
+      mailingCell.innerHTML = `<textarea id='mailingAddressInput' style='width:98%;min-height:60px;'>${originalMailing.replace(/<br>/g, '\n').replace(/<[^>]+>/g, '')}</textarea>`;
+      campusCell.innerHTML = `<textarea id='campusAddressInput' style='width:98%;min-height:40px;'>${originalCampus.replace(/<br>/g, '\n').replace(/<[^>]+>/g, '')}</textarea>`;
+    });
+    cancelBtn.addEventListener('click', function() {
+      isEditing = false;
+      editBtn.style.display = 'inline-block';
+      saveBtn.style.display = 'none';
+      cancelBtn.style.display = 'none';
+      homeCell.innerHTML = originalHome;
+      mailingCell.innerHTML = originalMailing;
+      campusCell.innerHTML = originalCampus;
+    });
+    saveBtn.addEventListener('click', function() {
+      isEditing = false;
+      editBtn.style.display = 'inline-block';
+      saveBtn.style.display = 'none';
+      cancelBtn.style.display = 'none';
+      // Save new values
+      const newHome = document.getElementById('homeAddressInput').value.replace(/\n/g, '<br>');
+      const newMailing = document.getElementById('mailingAddressInput').value.replace(/\n/g, '<br>');
+      const newCampus = document.getElementById('campusAddressInput').value.replace(/\n/g, '<br>');
+      homeCell.innerHTML = newHome;
+      mailingCell.innerHTML = newMailing;
+      campusCell.innerHTML = newCampus ? newCampus : '<i>No address defined</i>';
+      // Update originals
+      originalHome = homeCell.innerHTML;
+      originalMailing = mailingCell.innerHTML;
+      originalCampus = campusCell.innerHTML;
+    });
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        var tabName = tab.getAttribute('data-tab');
+        document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
+        document.getElementById('tab-' + tabName).classList.add('active');
+      });
+    });
+
+    // Contact Details Edit Logic
+    const editContactBtn = document.getElementById('editContactBtn');
+    const saveContactBtn = document.getElementById('saveContactBtn');
+    const cancelContactBtn = document.getElementById('cancelContactBtn');
+    const campusEmailCell = document.getElementById('campusEmailCell');
+    const homeEmailCell = document.getElementById('homeEmailCell');
+    const campusEmailPreferredCell = document.getElementById('campusEmailPreferredCell');
+    const homeEmailPreferredCell = document.getElementById('homeEmailPreferredCell');
+    const mobilePhoneCell = document.getElementById('mobilePhoneCell');
+    const mobilePhonePreferredCell = document.getElementById('mobilePhonePreferredCell');
+    let originalCampusEmail = campusEmailCell.innerHTML;
+    let originalHomeEmail = homeEmailCell.innerHTML;
+    let originalMobilePhone = mobilePhoneCell.innerHTML;
+    let preferredEmail = 'campus';
+    let preferredPhone = 'mobile';
+    function renderContactView() {
+      campusEmailCell.innerHTML = originalCampusEmail;
+      homeEmailCell.innerHTML = originalHomeEmail;
+      campusEmailPreferredCell.innerHTML = preferredEmail === 'campus' ? '✔' : '';
+      homeEmailPreferredCell.innerHTML = preferredEmail === 'home' ? '✔' : '';
+      mobilePhoneCell.innerHTML = originalMobilePhone;
+      mobilePhonePreferredCell.innerHTML = preferredPhone === 'mobile' ? '✔' : '';
+    }
+    editContactBtn.addEventListener('click', function() {
+      editContactBtn.style.display = 'none';
+      saveContactBtn.style.display = 'inline-block';
+      cancelContactBtn.style.display = 'inline-block';
+      // Campus email is uneditable
+      campusEmailCell.innerHTML = originalCampusEmail;
+      homeEmailCell.innerHTML = `<input id='homeEmailInput' type='email' value='${originalHomeEmail.replace(/<[^>]+>/g, '')}' style='width:98%;'>`;
+      campusEmailPreferredCell.innerHTML = `<input type='radio' name='preferredEmail' value='campus' ${preferredEmail==='campus'?'checked':''}>`;
+      homeEmailPreferredCell.innerHTML = `<input type='radio' name='preferredEmail' value='home' ${preferredEmail==='home'?'checked':''}>`;
+      mobilePhoneCell.innerHTML = `<input id='mobilePhoneInput' type='text' value='${originalMobilePhone.replace(/<[^>]+>/g, '')}' style='width:98%;'>`;
+      mobilePhonePreferredCell.innerHTML = `<input type='radio' name='preferredPhone' value='mobile' ${preferredPhone==='mobile'?'checked':''}>`;
+    });
+    cancelContactBtn.addEventListener('click', function() {
+      editContactBtn.style.display = 'inline-block';
+      saveContactBtn.style.display = 'none';
+      cancelContactBtn.style.display = 'none';
+      renderContactView();
+    });
+    saveContactBtn.addEventListener('click', function() {
+      editContactBtn.style.display = 'inline-block';
+      saveContactBtn.style.display = 'none';
+      cancelContactBtn.style.display = 'none';
+      originalHomeEmail = document.getElementById('homeEmailInput').value;
+      originalMobilePhone = document.getElementById('mobilePhoneInput').value;
+      // Preferred
+      const emailRadio = document.querySelector('input[name="preferredEmail"]:checked');
+      preferredEmail = emailRadio ? emailRadio.value : preferredEmail;
+      const phoneRadio = document.querySelector('input[name="preferredPhone"]:checked');
+      preferredPhone = phoneRadio ? phoneRadio.value : preferredPhone;
+      renderContactView();
+    });
+
+    // Emergency Contacts Edit Logic
+    const editEmergencyBtn = document.getElementById('editEmergencyBtn');
+    const saveEmergencyBtn = document.getElementById('saveEmergencyBtn');
+    const cancelEmergencyBtn = document.getElementById('cancelEmergencyBtn');
+    const emergencyNameCell = document.getElementById('emergencyNameCell');
+    const emergencyPhoneCell = document.getElementById('emergencyPhoneCell');
+    let originalEmergencyName = emergencyNameCell.innerHTML;
+    let originalEmergencyPhone = emergencyPhoneCell.innerHTML;
+    editEmergencyBtn.addEventListener('click', function() {
+      editEmergencyBtn.style.display = 'none';
+      saveEmergencyBtn.style.display = 'inline-block';
+      cancelEmergencyBtn.style.display = 'inline-block';
+      emergencyNameCell.innerHTML = `<input id='emergencyNameInput' type='text' value='${originalEmergencyName.replace(/<[^>]+>/g, '')}' style='width:98%;'>`;
+      emergencyPhoneCell.innerHTML = `<input id='emergencyPhoneInput' type='text' value='${originalEmergencyPhone.replace(/<[^>]+>/g, '')}' style='width:98%;'>`;
+    });
+    cancelEmergencyBtn.addEventListener('click', function() {
+      editEmergencyBtn.style.display = 'inline-block';
+      saveEmergencyBtn.style.display = 'none';
+      cancelEmergencyBtn.style.display = 'none';
+      emergencyNameCell.innerHTML = originalEmergencyName;
+      emergencyPhoneCell.innerHTML = originalEmergencyPhone;
+    });
+    saveEmergencyBtn.addEventListener('click', function() {
+      editEmergencyBtn.style.display = 'inline-block';
+      saveEmergencyBtn.style.display = 'none';
+      cancelEmergencyBtn.style.display = 'none';
+      originalEmergencyName = document.getElementById('emergencyNameInput').value;
+      originalEmergencyPhone = document.getElementById('emergencyPhoneInput').value;
+      emergencyNameCell.innerHTML = originalEmergencyName;
+      emergencyPhoneCell.innerHTML = originalEmergencyPhone;
+    });
+
+    // Ethnicity Edit Logic
+    const editEthnicityBtn = document.getElementById('editEthnicityBtn');
+    const saveEthnicityBtn = document.getElementById('saveEthnicityBtn');
+    const cancelEthnicityBtn = document.getElementById('cancelEthnicityBtn');
+    const ethnicityCodeCell = document.getElementById('ethnicityCodeCell');
+    const ethnicityBgCell = document.getElementById('ethnicityBgCell');
+    let originalEthnicityCode = ethnicityCodeCell.innerHTML;
+    let originalEthnicityBg = ethnicityBgCell.innerHTML;
+    editEthnicityBtn.addEventListener('click', function() {
+      editEthnicityBtn.style.display = 'none';
+      saveEthnicityBtn.style.display = 'inline-block';
+      cancelEthnicityBtn.style.display = 'inline-block';
+      ethnicityCodeCell.innerHTML = `<input id='ethnicityCodeInput' type='text' value='${originalEthnicityCode.replace(/<[^>]+>/g, '')}' style='width:98%;'>`;
+      ethnicityBgCell.innerHTML = `<input id='ethnicityBgInput' type='text' value='${originalEthnicityBg.replace(/<[^>]+>/g, '')}' style='width:98%;'>`;
+    });
+    cancelEthnicityBtn.addEventListener('click', function() {
+      editEthnicityBtn.style.display = 'inline-block';
+      saveEthnicityBtn.style.display = 'none';
+      cancelEthnicityBtn.style.display = 'none';
+      ethnicityCodeCell.innerHTML = originalEthnicityCode;
+      ethnicityBgCell.innerHTML = originalEthnicityBg;
+    });
+    saveEthnicityBtn.addEventListener('click', function() {
+      editEthnicityBtn.style.display = 'inline-block';
+      saveEthnicityBtn.style.display = 'none';
+      cancelEthnicityBtn.style.display = 'none';
+      originalEthnicityCode = document.getElementById('ethnicityCodeInput').value;
+      originalEthnicityBg = document.getElementById('ethnicityBgInput').value;
+      ethnicityCodeCell.innerHTML = originalEthnicityCode;
+      ethnicityBgCell.innerHTML = originalEthnicityBg;
+    });
+  </script>
+</body>
+</html>

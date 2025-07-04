@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Portal Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <img src="assets/Multimedia_University_logo.png" alt="MMU Logo" class="header-logo-img" />
+    </div>
+    <div class="header-icons" id="headerIcons">
+      <span class="header-icon search-icon-wrapper" title="Search" id="searchIconWrapper">
+        <i data-feather="search"></i>
+      </span>
+      <span class="header-icon notification-icon-wrapper" title="Notifications" id="notificationIconWrapper">
+        <i data-feather="bell"></i>
+      </span>
+      <span class="profile-pic-wrapper" title="Profile" id="profilePicWrapper">
+        <img src="assets/rsz_passport_size_photograph.jpg" alt="Profile" class="profile-pic" />
+      </span>
+    </div>
+    <div class="search-bar" id="headerSearchBar">
+      <input type="text" class="search-input" placeholder="Search…" autofocus />
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <div class="notification-dropdown" id="notificationDropdown">
+      <div class="notification-title">Notifications</div>
+      <div class="notification-list">
+        <div class="notification-item unread">
+          <span class="notification-message">Your class schedule has been updated.</span>
+          <span class="notification-time">2 min ago</span>
+        </div>
+        <div class="notification-item">
+          <span class="notification-message">Exam results are now available.</span>
+          <span class="notification-time">1 hr ago</span>
+        </div>
+        <div class="notification-item">
+          <span class="notification-message">Welcome to the new student portal!</span>
+          <span class="notification-time">1 day ago</span>
+        </div>
+      </div>
+      <div class="notification-footer"><a href="#">View all</a></div>
+    </div>
+    <div class="profile-dropdown" id="profileDropdown">
+      <div class="notification-title">Profile & Settings</div>
+      <div class="notification-list">
+        <a href="personal-information.html" class="dropdown-item" style="width:100%;text-align:left;display:flex;align-items:center;padding:8px 16px;text-decoration:none;font-size:1rem;font-weight:400;gap:0.7em;">
+          <i data-feather="user"></i>
+          <span style="margin-left:0.5em;">Personal Information</span>
+        </a>
+        <button id="darkModeToggle" class="dropdown-item" type="button" style="width:100%;text-align:left;">
+          <i id="darkModeIcon" data-feather="moon"></i>
+          <span style="margin-left:0.5em;">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-blur-overlay" id="modalBlurOverlay"></div>
+
+
+  <BR><BR><BR></BR></BR></BR>
+  <div class="dashboard-container">
+    <div class="notice-card">
+      <button class="notice-close" title="Close">&times;</button>
+      <strong>Important Notice :</strong><br><br>
+      <b>Keep Your IDM Password Fresh!</b><br>
+      Kindly activate your IDM to avoid any disruption to access the CLiC Application.<br>
+      Kindly navigate to Student Password Management (SPM) Portal at <a href="https://spm.mmu.edu.my/" target="_blank">https://spm.mmu.edu.my/</a><br>
+      • Click "Forgotten Password" to reset your password.<br>
+      • Login and click "Change Password". You are advised to change your IDM password at least once a year.<br><br>
+      <b>Don't Lose Your MMU Email and Data!</b><br>
+      Heads up! Once your status changes to inactive (Completed Programme, Discontinued, Dismissed, or Change Programme), all access to MMU IT facilities will be revoked one month later.<br>
+      Please back up your important emails and data from your MMU Microsoft account to your personal email and storage.<br>
+      ACT NOW to secure your information!<br><br>
+      Reach out to us for the above matters at<br>
+      IT Hotline No : 03-83125777 (C) | 06-2524777 (M)<br>
+      Email Support: <a href="mailto:nice.support@mmu.edu.my">nice.support@mmu.edu.my</a>
+    </div>
+
+    <div class="dashboard-section">
+      <h2 class="dashboard-category">Academics</h2>
+      <div class="grid">
+        <div class="card"><div class="card-icon"><i data-feather="calendar"></i></div><div class="card-title">Enrollment</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="calendar"></i></div><div class="card-title">Class Schedule</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="check-square"></i></div><div class="card-title">Attendance</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="briefcase"></i></div><div class="card-title">Industrial Training Program</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="folder"></i></div><div class="card-title">Final Year Project</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="file-text"></i></div><div class="card-title">Examinations</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="award"></i></div><div class="card-title">OBE Achievement</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="trending-up"></i></div><div class="card-title">Academic Progression</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="book"></i></div><div class="card-title">Admissions</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="globe"></i></div><div class="card-title">International Students</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="user-plus"></i></div><div class="card-title">Applicant Portal</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="shield"></i></div><div class="card-title">Cadetship</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="star"></i></div><div class="card-title">Character Building</div></div>
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <h2 class="dashboard-category">Finances</h2>
+      <div class="grid">
+        <a href="finance.html" style="text-decoration:none;color:inherit;"><div class="card"><div class="card-icon"><i data-feather="dollar-sign"></i></div><div class="card-title">Campus Finances</div></div></a>
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <h2 class="dashboard-category">Records & Requests</h2>
+      <div class="grid">
+        <div class="card"><div class="card-icon"><i data-feather="file"></i></div><div class="card-title">Academic Records</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="mail"></i></div><div class="card-title">Student Requests</div></div>
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <h2 class="dashboard-category">Services</h2>
+      <div class="grid">
+        <div class="card"><div class="card-icon"><i data-feather="book-open"></i></div><div class="card-title">Lifelong Learning</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="user-check"></i></div><div class="card-title">Postgraduate Service</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="check-circle"></i></div><div class="card-title">E-Voting</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="clipboard"></i></div><div class="card-title">Survey</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="smile"></i></div><div class="card-title">Campus Lifestyle</div></div>
+        <div class="card"><div class="card-icon"><i data-feather="layers"></i></div><div class="card-title">SAPS & STAP Management</div></div>
+      </div>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+  <script>feather.replace()</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Finances | MMU Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="header">
+    <a href="index.html" class="finance-back-btn" aria-label="Back to Dashboard"><i data-feather="arrow-left"></i></a>
+    <div class="header-left">
+      <img src="assets/Multimedia_University_logo.png" alt="MMU Logo" class="header-logo-img" />
+    </div>
+    <div class="header-icons" id="headerIcons">
+      <span class="header-icon search-icon-wrapper" title="Search" id="searchIconWrapper">
+        <i data-feather="search"></i>
+      </span>
+      <span class="header-icon notification-icon-wrapper" title="Notifications" id="notificationIconWrapper">
+        <i data-feather="bell"></i>
+      </span>
+      <span class="profile-pic-wrapper" title="Profile" id="profilePicWrapper">
+        <img src="assets/rsz_passport_size_photograph.jpg" alt="Profile" class="profile-pic" />
+      </span>
+    </div>
+    <div class="search-bar" id="headerSearchBar">
+      <input type="text" class="search-input" placeholder="Search…" autofocus />
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <div class="notification-dropdown" id="notificationDropdown">
+      <div class="notification-title">Notifications</div>
+      <div class="notification-list">
+        <div class="notification-item unread">
+          <span class="notification-message">Your class schedule has been updated.</span>
+          <span class="notification-time">2 min ago</span>
+        </div>
+        <div class="notification-item">
+          <span class="notification-message">Exam results are now available.</span>
+          <span class="notification-time">1 hr ago</span>
+        </div>
+        <div class="notification-item">
+          <span class="notification-message">Welcome to the new student portal!</span>
+          <span class="notification-time">1 day ago</span>
+        </div>
+      </div>
+      <div class="notification-footer"><a href="#">View all</a></div>
+    </div>
+    <div class="profile-dropdown" id="profileDropdown">
+      <div class="notification-title">Profile & Settings</div>
+      <div class="notification-list">
+        <a href="personal-information.html" class="dropdown-item" style="width:100%;text-align:left;display:block;padding:8px 16px;">
+          <i data-feather="user"></i>
+          <span style="margin-left:0.5em;">Personal Information</span>
+        </a>
+        <button id="darkModeToggle" class="dropdown-item" type="button" style="width:100%;text-align:left;">
+          <i id="darkModeIcon" data-feather="moon"></i>
+          <span style="margin-left:0.5em;">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-blur-overlay" id="modalBlurOverlay"></div>
+
+  
+  <BR><BR>
+  <div class="finance-container">
+    <aside class="finance-side-menu">
+      <ul>
+        <li class="active">Summary</li>
+        <li>Make a Payment</li>
+        <li>Account Activity</li>
+        <li>Invoices</li>
+        <li>Miscellaneous</li>
+        <li>Payments</li>
+        <li>Refunds</li>
+        <li>Statement of Account</li>
+        <li>My Bank Account</li>
+        <li>Bank Account Details</li>
+      </ul>
+    </aside>
+    <main class="finance-main-content">
+      <h2>Campus Finances</h2>
+      <div class="finance-summary-card">
+        <h3>Welcome to Campus Finances</h3>
+        <p>Select an option from the menu to view your financial information, make payments, or review your account activity.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script>feather.replace()</script>
+</body>
+</html> 
